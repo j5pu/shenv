@@ -1,0 +1,59 @@
+#!/bin/sh
+
+#
+# shenv is a shell environment manager (only when python is not installed)
+
+set -eu
+
+VERSION="0.0.0"
+
+#######################################
+# show usage
+# Globals:
+#   USER
+# Arguments:
+#   0
+#######################################
+help() {
+  rc=$?
+
+  [ ! "${1-}" ] || { echo "${0##*/}: $1: invalid option/argument"; echo; }
+  >&2 cat <<EOF
+usage: ${0##*/} [<command>]
+   or: ${0##*/} -h|--help
+
+shell environment variables and profile manager.
+
+Commands:
+   commands     display ${0##*/}' commands
+   prefix       installed prefix
+
+EOF
+
+  exit $rc
+}
+
+#######################################
+# shell environment when python is not installed
+# Globals:
+#   USER
+# Arguments:
+#   0
+#######################################
+main() {
+  cd "$(dirname "$0")/.."
+
+  [ $# -ne 0 ] || help
+
+  for arg; do
+    case "${arg}" in
+      -h|--help) help ;;
+      -v|--version) echo "${VERSION}" ;;
+      commands) printf '%s\n' commands prefix --prefix ;;
+      --prefix|prefix) pwd -P ;;
+      *) false || help "$1" ;;
+    esac
+  done
+}
+
+main "$@"
