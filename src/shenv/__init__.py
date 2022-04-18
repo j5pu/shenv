@@ -660,7 +660,7 @@ class EnvGit(EnvBase):
     """
     is the human-readable name in the “author” field.
     """
-    GIT_AUTHOR_EMAIL: Optional[str] = field(default=None, init=False)
+    GIT_AUTHOR_EMAIL: Optional[furl] = field(default=None, init=False)
     """
     is the email for the “author” field.
     """
@@ -668,7 +668,11 @@ class EnvGit(EnvBase):
     """
     is the timestamp used for the “author” field.
     """
-    GIT_COMMITTER_EMAIL: Optional[str] = field(default=None, init=False)
+    GIT_COMMITTER_NAME: Optional[str] = field(default=None, init=False)
+    """
+    sets the human name for the “committer” field..
+    """
+    GIT_COMMITTER_EMAIL: Optional[furl] = field(default=None, init=False)
     """
     is the email address for the “committer” field.
     """
