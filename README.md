@@ -1,2 +1,0 @@
-# shenv
-Shell Environment
